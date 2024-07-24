@@ -25,6 +25,5 @@ export class OrdersComponent {
 
   fetchAllDishes() {
     this.dishes = this.restService.getAllDishes();
-    console.log('dishes ==>', this.dishes)
   }
 }

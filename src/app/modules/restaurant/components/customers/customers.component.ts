@@ -21,7 +21,6 @@ export class CustomersComponent {
   fetchAllCustomers() {
     this.restServ.getAllCustomers().subscribe((customer) => {
       this.customers = customer;
-      console.log('all customers ===>', this.customers)
     })
   }
 }
