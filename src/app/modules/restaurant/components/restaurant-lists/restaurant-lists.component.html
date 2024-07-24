@@ -1,0 +1,198 @@
+<div class="container-fluid p-1">
+    <app-navbar></app-navbar>
+    <div class="row">
+        <div class="col-md-3">
+            <app-sidebar></app-sidebar>
+        </div>
+
+        <div class="col-md-9">
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">Top Food Menu</div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Food Item</th>
+                                        <th scope="col">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Pizza</td>
+                                        <td>10$</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Burger</td>
+                                        <td>20$</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            Restuarantwise Sales
+                        </div>
+                        <div class="card-body">
+                            <span>Week 1</span>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%"
+                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                    25%
+                                </div>
+                            </div>
+                            <span>Week 2</span>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 45%"
+                                    aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+                                    45%
+                                </div>
+                            </div>
+                            <span>Week 3</span>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 55%"
+                                    aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+                                    55%
+                                </div>
+                            </div>
+                            <span>Week 4</span>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 85%"
+                                    aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                    85%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <div class="card">
+                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
+                            data-target="#restaurantModal">
+                            Add Restaurant <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-dark text-white">
+                                        <tr>
+                                            <th scope="col">Restuarant ID</th>
+                                            <th scope="col">Restuarant Name</th>
+                                            <th scope="col">Location</th>
+                                            <th scope="col">Joined date</th>
+                                            <th scope="col">Ratings</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let rest of restuarantLists">
+                                            <th scope="row">{{ rest.id }}</th>
+                                            <td>{{ rest.name }}</td>
+                                            <td>{{ rest.location }}</td>
+                                            <td>{{ rest.joinedDate | date }} <br>
+                                                <small><b>{{ rest.joinedDate | age }} Years Old</b></small>
+                                            </td>
+                                            <td>{{ rest.ratings }} <i class="fa fa-star"></i></td>
+                                            <td>
+                                                <span>
+                                                    <button class="btn btn-sm btn-primary mr-2" data-toggle="modal"
+                                                    data-target="#restaurantModal" (click)="onEdit(rest)">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger" data-toggle="modal"
+                                                    data-target="#restaurantDeleteModal" (click)="onDelete(rest.id)">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+
+<div class="modal fade" id="restaurantModal" tabindex="-1" role="dialog" aria-labelledby="restaurantModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="restaurantModalLabel">Add Restaurant</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #restaurantModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="id">ID</label>
+              <input type="text" id="id" class="form-control" formControlName="id">
+              <small *ngIf="restaurantForm.get('id')?.invalid && restaurantForm.get('id')?.touched" class="text-danger">ID is required</small>
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" class="form-control" formControlName="name">
+              <small *ngIf="restaurantForm.get('name')?.invalid && restaurantForm.get('name')?.touched" class="text-danger">Name is required</small>
+            </div>
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input type="text" id="location" class="form-control" formControlName="location">
+              <small *ngIf="restaurantForm.get('location')?.invalid && restaurantForm.get('location')?.touched" class="text-danger">Locations is required</small>
+            </div>
+            <div class="form-group">
+              <label for="joinedDate">Joined Date</label>
+              <input type="date" id="joinedDate" class="form-control" formControlName="joinedDate">
+              <small *ngIf="restaurantForm.get('joinedDate')?.invalid && restaurantForm.get('joinedDate')?.touched" class="text-danger">Joined date is required</small>
+            </div>
+            <div class="form-group">
+              <label for="ratings">Ratings</label>
+              <input type="number" id="ratings" class="form-control" formControlName="ratings">
+              <small *ngIf="restaurantForm.get('ratings')?.invalid && restaurantForm.get('ratings')?.touched" class="text-danger">Ratings is required</small>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="restaurantForm.invalid">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="restaurantDeleteModal" tabindex="-1" role="dialog" aria-labelledby="restaurantDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="restaurantDeleteModalLabel">Are you Sure you want to delete Restaurant ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #restaurantDeleteModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">NO</button>
+            <button type="button" class="btn btn-sm btn-success" data-dismiss="modal">YES</button>
+          </div>
+      </div>
+    </div>
+</div>

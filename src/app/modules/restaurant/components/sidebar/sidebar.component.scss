@@ -1,0 +1,15 @@
+.hover-card-body {
+    transition: background-color 0.3s ease, font-weight 0.3s ease;
+    cursor: pointer;
+}
+
+.hover-card-body:hover {
+    background-color: black;
+    color: white; 
+    font-weight: bold; 
+}
+
+.active {
+    background-color: black !important;
+    color: white !important; 
+}

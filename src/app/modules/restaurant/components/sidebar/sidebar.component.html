@@ -1,0 +1,8 @@
+<div class="card mt-3">
+    <div *ngFor="let item of items" class="card-body hover-card-body" 
+        [ngClass]="{'active': activeItem === item.key}" 
+        (click)="setActiveItem(item.key)"
+        (click)="navigateTo(item.key)">
+        <i class="fa" [ngClass]="item.icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{item.label}}
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="container-fluid p-1">
+    <app-navbar></app-navbar>
+    <div class="row">
+        <div class="col-md-3">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-md-9">
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">Customers List</div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-green text-white">
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">User Name</th>
+                                            <th scope="col">Mobile</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">City</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let customer of customers">
+                                            <td>{{ customer.name }}</td>
+                                            <td>{{ customer.username }}</td>
+                                            <td>{{ customer.phone | truncatePhone}}</td>
+                                            <td>{{ customer.email }}</td>
+                                            <td>{{ customer.address.city }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                  <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link">1</a></li>
+                                  <li class="page-item"><a class="page-link">2</a></li>
+                                  <li class="page-item"><a class="page-link">3</a></li>
+                                  <li class="page-item">
+                                    <a class="page-link">Next</a>
+                                  </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

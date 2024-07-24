@@ -1,0 +1,89 @@
+<div class="container-fluid p-1">
+    <app-navbar></app-navbar>
+    <div class="row">
+        <div class="col-md-3">
+            <app-sidebar></app-sidebar>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">Favorite Orders</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3" *ngFor="let dish of dishes">
+                                  <div class="card-body text-white text-center" [ngClass]="dish.colorClass">
+                                    <p>{{ dish.name }}</p> {{ dish.percentage }}%
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">Orders List</div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-green text-white">
+                                        <tr>
+                                            <th scope="col">Order ID</th>
+                                            <th scope="col">Order Name</th>
+                                            <th scope="col">Customer Name</th>
+                                            <th scope="col">Location</th>
+                                            <th scope="col">Order Status</th>
+                                            <th scope="col">Delivered Time</th>
+                                            <th scope="col">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let order of orders">
+                                            <th scope="row">{{ order.id }}</th>
+                                            <td>{{ order.name }}</td>
+                                            <td>{{ order.cName }}</td>
+                                            <td>{{ order.location }}</td>
+                                            <td>
+                                                <span [ngClass]="{
+                                                    'badge': true,
+                                                    'badge-success': order.status === 'Delivered',
+                                                    'badge-danger': order.status === 'Cancelled',
+                                                    'badge-primary': order.status === 'Pending'
+                                                  }">{{ order.status }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-clock-o"></i> {{ order.dTime }} 
+                                            </td>
+                                            <td>
+                                                {{order.price}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                  <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link">1</a></li>
+                                  <li class="page-item"><a class="page-link">2</a></li>
+                                  <li class="page-item"><a class="page-link">3</a></li>
+                                  <li class="page-item">
+                                    <a class="page-link">Next</a>
+                                  </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
